@@ -15,6 +15,11 @@ interface Product {
   icon: string;
 }
 
+interface Donation {
+  id: number;
+  amount: number;
+}
+
 const products: Product[] = [
   {
     id: 1,
@@ -68,15 +73,39 @@ const products: Product[] = [
   }
 ];
 
+const donations: Donation[] = [
+  { id: 1, amount: 10 },
+  { id: 2, amount: 15 },
+  { id: 3, amount: 20 },
+  { id: 4, amount: 25 },
+  { id: 5, amount: 50 },
+  { id: 6, amount: 75 },
+  { id: 7, amount: 100 },
+  { id: 8, amount: 150 },
+  { id: 9, amount: 200 },
+  { id: 10, amount: 250 },
+  { id: 11, amount: 300 },
+  { id: 12, amount: 500 },
+  { id: 13, amount: 750 },
+  { id: 14, amount: 1000 }
+];
+
 const Index = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedDonation, setSelectedDonation] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDonationDialogOpen, setIsDonationDialogOpen] = useState(false);
   const { toast } = useToast();
   const phoneNumber = '+79505244676';
 
   const handleBuyClick = (product: Product) => {
     setSelectedProduct(product);
     setIsDialogOpen(true);
+  };
+
+  const handleDonationClick = (amount: number) => {
+    setSelectedDonation(amount);
+    setIsDonationDialogOpen(true);
   };
 
   const copyPhoneNumber = () => {
@@ -106,6 +135,12 @@ const Index = () => {
                 className="text-white hover:text-pink-500 transition-colors font-semibold"
               >
                 Товары
+              </button>
+              <button 
+                onClick={() => scrollToSection('donations')}
+                className="text-white hover:text-pink-500 transition-colors font-semibold"
+              >
+                Пожертвования
               </button>
               <button 
                 onClick={() => scrollToSection('how-to-buy')}
@@ -191,6 +226,30 @@ const Index = () => {
         </div>
       </section>
 
+      <section id="donations" className="container mx-auto px-4 py-16">
+        <h2 className="text-4xl md:text-5xl font-black text-center mb-6 neon-text">
+          ПОДДЕРЖАТЬ СЕРВЕР
+        </h2>
+        <p className="text-center text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
+          Ваши пожертвования помогают развивать сервер и добавлять новые функции
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
+          {donations.map((donation) => (
+            <Card 
+              key={donation.id}
+              onClick={() => handleDonationClick(donation.amount)}
+              className="bg-black/60 border-2 border-cyan-500/50 backdrop-blur-sm hover:border-cyan-400 transition-all duration-300 hover:scale-105 cursor-pointer"
+            >
+              <CardContent className="p-6 text-center">
+                <div className="text-3xl font-black text-cyan-400" style={{ textShadow: '0 0 10px #00ffff, 0 0 20px #00ffff' }}>
+                  {donation.amount}₽
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       <section id="how-to-buy" className="container mx-auto px-4 py-16">
         <Card className="bg-black/60 border-2 border-purple-600 backdrop-blur-sm max-w-3xl mx-auto">
           <CardHeader>
@@ -258,6 +317,44 @@ const Index = () => {
                 <Button 
                   onClick={copyPhoneNumber}
                   className="w-full bg-green-600 hover:bg-green-700 text-white font-bold"
+                  size="lg"
+                >
+                  <Icon name="Copy" className="mr-2" size={20} />
+                  СКОПИРОВАТЬ НОМЕР
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDonationDialogOpen} onOpenChange={setIsDonationDialogOpen}>
+        <DialogContent className="bg-black border-2 border-cyan-500 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-black" style={{ textShadow: '0 0 10px #00ffff, 0 0 20px #00ffff' }}>
+              ПОЖЕРТВОВАНИЕ
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Спасибо за поддержку сервера!
+            </DialogDescription>
+          </DialogHeader>
+          {selectedDonation && (
+            <div className="space-y-6">
+              <div className="bg-cyan-900/30 p-6 rounded-lg border border-cyan-500">
+                <Icon name="Heart" size={32} className="text-cyan-400 mx-auto mb-3" />
+                <p className="text-5xl font-black text-cyan-400 text-center" style={{ textShadow: '0 0 10px #00ffff, 0 0 20px #00ffff' }}>
+                  {selectedDonation}₽
+                </p>
+              </div>
+              
+              <div className="space-y-3">
+                <p className="text-sm text-gray-400 font-semibold">ПОЗВОНИТЕ ПО НОМЕРУ:</p>
+                <div className="bg-gradient-to-r from-cyan-600 to-blue-600 p-4 rounded-lg" style={{ boxShadow: '0 0 20px #00ffff' }}>
+                  <p className="text-2xl font-black text-center">{phoneNumber}</p>
+                </div>
+                <Button 
+                  onClick={copyPhoneNumber}
+                  className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold"
                   size="lg"
                 >
                   <Icon name="Copy" className="mr-2" size={20} />
