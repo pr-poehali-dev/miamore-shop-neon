@@ -51,13 +51,76 @@ const products: Product[] = [
   },
   {
     id: 5,
-    name: 'Привилегия ТАНОС',
-    price: 200,
-    description: 'Управляй временем суток + помощь админа в любых вопросах',
-    icon: 'Crown'
+    name: 'Привилегия ВИП',
+    price: 10,
+    description: 'Базовые возможности: цветной ник, приват территории',
+    icon: 'Star'
   },
   {
     id: 6,
+    name: 'Привилегия ПРЕМИУМ',
+    price: 19,
+    description: 'Расширенные возможности + все бонусы VIP',
+    icon: 'Award'
+  },
+  {
+    id: 7,
+    name: 'Привилегия КРЕАТИВ',
+    price: 29,
+    description: 'Креативный режим для строительства',
+    icon: 'Palette'
+  },
+  {
+    id: 8,
+    name: 'Привилегия ГЕРОЙ',
+    price: 15,
+    description: 'Уникальные способности героя на сервере',
+    icon: 'Sword'
+  },
+  {
+    id: 9,
+    name: 'Привилегия СТРАЖ',
+    price: 49,
+    description: 'Модерация чата + особые команды',
+    icon: 'ShieldCheck'
+  },
+  {
+    id: 10,
+    name: 'Привилегия АДМИН',
+    price: 49,
+    description: 'Административные права на сервере',
+    icon: 'Crown'
+  },
+  {
+    id: 11,
+    name: 'Ключи с привилегией',
+    price: 39,
+    description: 'Наборы ключей от донат-кейсов',
+    icon: 'Key'
+  },
+  {
+    id: 12,
+    name: 'Разбан',
+    price: 259,
+    description: 'Снятие бана с аккаунта',
+    icon: 'Unlock'
+  },
+  {
+    id: 13,
+    name: 'Размут',
+    price: 69,
+    description: 'Снятие мута в чате',
+    icon: 'Volume2'
+  },
+  {
+    id: 14,
+    name: 'Привилегия ТАНОС',
+    price: 200,
+    description: 'Управляй временем суток + помощь админа в любых вопросах',
+    icon: 'Sparkles'
+  },
+  {
+    id: 15,
     name: 'Админка на день',
     price: 150,
     description: 'Админ права на 24 часа',
@@ -65,154 +128,154 @@ const products: Product[] = [
     icon: 'Timer'
   },
   {
-    id: 7,
+    id: 16,
     name: 'Админка навсегда',
     price: 600,
     description: 'Вечные админ права на сервере',
     icon: 'Infinity'
   },
   {
-    id: 8,
+    id: 17,
     name: 'Стак камня',
     price: 10,
     description: '64 блока камня для строительства',
     icon: 'Box'
   },
   {
-    id: 9,
+    id: 18,
     name: 'Стак земли',
     price: 10,
     description: '64 блока земли',
     icon: 'Mountain'
   },
   {
-    id: 10,
+    id: 19,
     name: 'Стак досок',
     price: 10,
     description: '64 деревянные доски',
     icon: 'TableProperties'
   },
   {
-    id: 11,
+    id: 20,
     name: 'Стак стекла',
     price: 10,
     description: '64 блока стекла',
     icon: 'Square'
   },
   {
-    id: 12,
+    id: 21,
     name: 'Стак песка',
     price: 10,
     description: '64 блока песка',
     icon: 'Waves'
   },
   {
-    id: 13,
+    id: 22,
     name: 'Стак булыжника',
     price: 10,
     description: '64 блока булыжника',
     icon: 'Shapes'
   },
   {
-    id: 14,
+    id: 23,
     name: 'Стак кирпича',
     price: 10,
     description: '64 кирпича для красивых построек',
     icon: 'Grid3x3'
   },
   {
-    id: 15,
+    id: 24,
     name: 'Стак обсидиана',
     price: 10,
     description: '64 блока обсидиана',
     icon: 'Hexagon'
   },
   {
-    id: 16,
+    id: 25,
     name: 'Стак шерсти',
     price: 10,
     description: '64 блока шерсти (любой цвет)',
     icon: 'Shirt'
   },
   {
-    id: 17,
+    id: 26,
     name: 'Стак угля',
     price: 10,
     description: '64 угля для плавки',
     icon: 'Fuel'
   },
   {
-    id: 18,
+    id: 27,
     name: 'Стак железных слитков',
     price: 10,
     description: '64 железных слитка',
     icon: 'Hammer'
   },
   {
-    id: 19,
+    id: 28,
     name: 'Стак золотых слитков',
     price: 10,
     description: '64 золотых слитка',
     icon: 'Coins'
   },
   {
-    id: 20,
+    id: 29,
     name: 'Стак алмазов',
     price: 10,
     description: '64 алмаза',
     icon: 'Diamond'
   },
   {
-    id: 21,
+    id: 30,
     name: 'Стак изумрудов',
     price: 10,
     description: '64 изумруда для торговли',
     icon: 'Gem'
   },
   {
-    id: 22,
+    id: 31,
     name: 'Стак красной пыли',
     price: 10,
     description: '64 красной пыли для механизмов',
     icon: 'Sparkles'
   },
   {
-    id: 23,
+    id: 32,
     name: 'Стак TNT',
     price: 10,
     description: '64 блока TNT',
     icon: 'Bomb'
   },
   {
-    id: 24,
+    id: 33,
     name: 'Стак светящегося камня',
     price: 10,
     description: '64 блока светящегося камня',
     icon: 'Lightbulb'
   },
   {
-    id: 25,
+    id: 34,
     name: 'Стак эндер-камня',
     price: 10,
     description: '64 блока эндер-камня',
     icon: 'Cuboid'
   },
   {
-    id: 26,
+    id: 35,
     name: 'Стак кварца',
     price: 10,
     description: '64 кварца из Нижнего мира',
     icon: 'Milestone'
   },
   {
-    id: 27,
+    id: 36,
     name: 'Стак призмарина',
     price: 10,
     description: '64 блока призмарина',
     icon: 'Waves'
   },
   {
-    id: 28,
+    id: 37,
     name: 'Стак незеритовых слитков',
     price: 10,
     description: '64 незеритовых слитка',
