@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 
@@ -305,8 +306,25 @@ const Index = () => {
   const [selectedDonation, setSelectedDonation] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDonationDialogOpen, setIsDonationDialogOpen] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showRoulette, setShowRoulette] = useState(false);
+  const [showDiscount, setShowDiscount] = useState(false);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [discount, setDiscount] = useState(0);
   const { toast } = useToast();
   const phoneNumber = '+79505244676';
+
+  useEffect(() => {
+    const registered = localStorage.getItem('miamore_registered');
+    if (registered) {
+      setIsRegistered(true);
+    } else {
+      setShowRegister(true);
+    }
+  }, []);
 
   const handleBuyClick = (product: Product) => {
     setSelectedProduct(product);
@@ -324,6 +342,39 @@ const Index = () => {
       title: 'Скопировано!',
       description: 'Номер телефона скопирован в буфер обмена',
     });
+  };
+
+  const handleRegister = () => {
+    if (!username || !email) {
+      toast({
+        title: 'Ошибка',
+        description: 'Заполните все поля',
+        variant: 'destructive'
+      });
+      return;
+    }
+    setShowRegister(false);
+    setShowRoulette(true);
+  };
+
+  const spinRoulette = () => {
+    setIsSpinning(true);
+    const discounts = [10, 15, 20, 25, 30, 35, 40, 45, 50];
+    const randomDiscount = discounts[Math.floor(Math.random() * discounts.length)];
+    
+    setTimeout(() => {
+      setDiscount(randomDiscount);
+      setIsSpinning(false);
+      setShowRoulette(false);
+      setShowDiscount(true);
+      localStorage.setItem('miamore_registered', 'true');
+      localStorage.setItem('miamore_discount', randomDiscount.toString());
+      setIsRegistered(true);
+    }, 3000);
+  };
+
+  const closeDiscount = () => {
+    setShowDiscount(false);
   };
 
   const scrollToSection = (id: string) => {
@@ -573,6 +624,122 @@ const Index = () => {
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showRegister} onOpenChange={setShowRegister}>
+        <DialogContent className="bg-black border-2 border-pink-500 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-black neon-text text-center">
+              ДОБРО ПОЖАЛОВАТЬ!
+            </DialogTitle>
+            <DialogDescription className="text-gray-400 text-center">
+              Зарегистрируйся и получи шанс на скидку!
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-semibold text-gray-400 mb-2 block">ИМЯ ИГРОКА</label>
+              <Input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Твой ник в Minecraft"
+                className="bg-black/60 border-purple-600 text-white"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-semibold text-gray-400 mb-2 block">EMAIL</label>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@mail.com"
+                className="bg-black/60 border-purple-600 text-white"
+              />
+            </div>
+            <Button
+              onClick={handleRegister}
+              className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg py-6 neon-glow"
+              size="lg"
+            >
+              <Icon name="Gift" className="mr-2" size={24} />
+              ЗАРЕГИСТРИРОВАТЬСЯ
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showRoulette} onOpenChange={setShowRoulette}>
+        <DialogContent className="bg-black border-2 border-pink-500 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-black neon-text text-center">
+              РУЛЕТКА СКИДОК
+            </DialogTitle>
+            <DialogDescription className="text-gray-400 text-center">
+              Крути рулетку и получи свою скидку!
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6">
+            <div className="relative">
+              <div 
+                className={`w-64 h-64 mx-auto rounded-full border-4 border-pink-500 neon-glow flex items-center justify-center bg-gradient-to-br from-purple-900 via-pink-900 to-purple-900 ${isSpinning ? 'animate-spin' : ''}`}
+                style={{ animationDuration: '0.3s' }}
+              >
+                <div className="text-center">
+                  <Icon name="Sparkles" size={64} className="text-pink-500 mx-auto mb-2" />
+                  <p className="text-4xl font-black neon-text">
+                    {isSpinning ? '?' : 'КРУТИ!'}
+                  </p>
+                </div>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4">
+                <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-pink-500"></div>
+              </div>
+            </div>
+            <Button
+              onClick={spinRoulette}
+              disabled={isSpinning}
+              className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-lg py-6 neon-glow disabled:opacity-50"
+              size="lg"
+            >
+              <Icon name="Zap" className="mr-2" size={24} />
+              {isSpinning ? 'КРУТИТСЯ...' : 'КРУТИТЬ РУЛЕТКУ'}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showDiscount} onOpenChange={closeDiscount}>
+        <DialogContent className="bg-black border-2 border-green-500 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-black text-center" style={{ textShadow: '0 0 20px #00ff00' }}>
+              ПОЗДРАВЛЯЕМ!
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-6 text-center">
+            <Icon name="PartyPopper" size={80} className="text-yellow-400 mx-auto" />
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 p-8 rounded-lg neon-glow">
+              <p className="text-2xl font-bold mb-2">ТВОЯ СКИДКА</p>
+              <p className="text-7xl font-black" style={{ textShadow: '0 0 30px #00ff00' }}>
+                {discount}%
+              </p>
+            </div>
+            <div className="bg-yellow-900/30 border-2 border-yellow-500 p-4 rounded-lg">
+              <Icon name="Info" size={24} className="text-yellow-400 mx-auto mb-2" />
+              <p className="text-lg font-bold text-yellow-400">ВАЖНО!</p>
+              <p className="text-gray-300 mt-2">
+                При покупке товара сообщите администратору про свою скидку <span className="font-black text-green-400">{discount}%</span>
+              </p>
+            </div>
+            <Button
+              onClick={closeDiscount}
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold text-lg py-6"
+              size="lg"
+            >
+              <Icon name="Check" className="mr-2" size={24} />
+              ПОНЯТНО!
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
 
