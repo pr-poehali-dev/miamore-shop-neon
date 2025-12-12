@@ -70,6 +70,153 @@ const products: Product[] = [
     price: 600,
     description: 'Вечные админ права на сервере',
     icon: 'Infinity'
+  },
+  {
+    id: 8,
+    name: 'Стак камня',
+    price: 10,
+    description: '64 блока камня для строительства',
+    icon: 'Box'
+  },
+  {
+    id: 9,
+    name: 'Стак земли',
+    price: 10,
+    description: '64 блока земли',
+    icon: 'Mountain'
+  },
+  {
+    id: 10,
+    name: 'Стак досок',
+    price: 10,
+    description: '64 деревянные доски',
+    icon: 'TableProperties'
+  },
+  {
+    id: 11,
+    name: 'Стак стекла',
+    price: 10,
+    description: '64 блока стекла',
+    icon: 'Square'
+  },
+  {
+    id: 12,
+    name: 'Стак песка',
+    price: 10,
+    description: '64 блока песка',
+    icon: 'Waves'
+  },
+  {
+    id: 13,
+    name: 'Стак булыжника',
+    price: 10,
+    description: '64 блока булыжника',
+    icon: 'Shapes'
+  },
+  {
+    id: 14,
+    name: 'Стак кирпича',
+    price: 10,
+    description: '64 кирпича для красивых построек',
+    icon: 'Grid3x3'
+  },
+  {
+    id: 15,
+    name: 'Стак обсидиана',
+    price: 10,
+    description: '64 блока обсидиана',
+    icon: 'Hexagon'
+  },
+  {
+    id: 16,
+    name: 'Стак шерсти',
+    price: 10,
+    description: '64 блока шерсти (любой цвет)',
+    icon: 'Shirt'
+  },
+  {
+    id: 17,
+    name: 'Стак угля',
+    price: 10,
+    description: '64 угля для плавки',
+    icon: 'Fuel'
+  },
+  {
+    id: 18,
+    name: 'Стак железных слитков',
+    price: 10,
+    description: '64 железных слитка',
+    icon: 'Hammer'
+  },
+  {
+    id: 19,
+    name: 'Стак золотых слитков',
+    price: 10,
+    description: '64 золотых слитка',
+    icon: 'Coins'
+  },
+  {
+    id: 20,
+    name: 'Стак алмазов',
+    price: 10,
+    description: '64 алмаза',
+    icon: 'Diamond'
+  },
+  {
+    id: 21,
+    name: 'Стак изумрудов',
+    price: 10,
+    description: '64 изумруда для торговли',
+    icon: 'Gem'
+  },
+  {
+    id: 22,
+    name: 'Стак красной пыли',
+    price: 10,
+    description: '64 красной пыли для механизмов',
+    icon: 'Sparkles'
+  },
+  {
+    id: 23,
+    name: 'Стак TNT',
+    price: 10,
+    description: '64 блока TNT',
+    icon: 'Bomb'
+  },
+  {
+    id: 24,
+    name: 'Стак светящегося камня',
+    price: 10,
+    description: '64 блока светящегося камня',
+    icon: 'Lightbulb'
+  },
+  {
+    id: 25,
+    name: 'Стак эндер-камня',
+    price: 10,
+    description: '64 блока эндер-камня',
+    icon: 'Cuboid'
+  },
+  {
+    id: 26,
+    name: 'Стак кварца',
+    price: 10,
+    description: '64 кварца из Нижнего мира',
+    icon: 'Milestone'
+  },
+  {
+    id: 27,
+    name: 'Стак призмарина',
+    price: 10,
+    description: '64 блока призмарина',
+    icon: 'Waves'
+  },
+  {
+    id: 28,
+    name: 'Стак незеритовых слитков',
+    price: 10,
+    description: '64 незеритовых слитка',
+    icon: 'Anvil'
   }
 ];
 
