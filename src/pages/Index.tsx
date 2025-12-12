@@ -1,12 +1,279 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
+import Icon from '@/components/ui/icon';
+import { useToast } from '@/hooks/use-toast';
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  badge?: string;
+  icon: string;
+}
+
+const products: Product[] = [
+  {
+    id: 1,
+    name: 'Пак Нуба для ПВП',
+    price: 5,
+    description: 'Кожаная броня + деревянный меч. Идеально для старта!',
+    icon: 'Sword'
+  },
+  {
+    id: 2,
+    name: 'Обычная алмазная броня',
+    price: 10,
+    description: 'Полный сет алмазной брони без зачарований',
+    icon: 'Shield'
+  },
+  {
+    id: 3,
+    name: 'Алмазная зачарованная броня',
+    price: 15,
+    description: 'Полный сет алмазной брони с мощными зачарованиями',
+    icon: 'ShieldCheck'
+  },
+  {
+    id: 4,
+    name: 'Пак ПРО',
+    price: 100,
+    description: 'Алмазная броня, стак алмазов, 16 эндер перлов, алмазная кирка и топор',
+    icon: 'Package'
+  },
+  {
+    id: 5,
+    name: 'Привилегия ТАНОС',
+    price: 200,
+    description: 'Управляй временем суток + помощь админа в любых вопросах',
+    icon: 'Crown'
+  },
+  {
+    id: 6,
+    name: 'Админка на день',
+    price: 150,
+    description: 'Админ права на 24 часа',
+    badge: 'ОГРАНИЧЕНО',
+    icon: 'Timer'
+  },
+  {
+    id: 7,
+    name: 'Админка навсегда',
+    price: 600,
+    description: 'Вечные админ права на сервере',
+    icon: 'Infinity'
+  }
+];
 
 const Index = () => {
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { toast } = useToast();
+  const phoneNumber = '+79505244676';
+
+  const handleBuyClick = (product: Product) => {
+    setSelectedProduct(product);
+    setIsDialogOpen(true);
+  };
+
+  const copyPhoneNumber = () => {
+    navigator.clipboard.writeText(phoneNumber);
+    toast({
+      title: 'Скопировано!',
+      description: 'Номер телефона скопирован в буфер обмена',
+    });
+  };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-[#0a0a0a] cyber-grid">
+      <header className="sticky top-0 z-50 backdrop-blur-lg bg-black/80 border-b border-pink-500/30">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl md:text-4xl font-black neon-text glitch">
+              MIAMORE SHOP
+            </h1>
+            <nav className="flex gap-6">
+              <button 
+                onClick={() => scrollToSection('products')}
+                className="text-white hover:text-pink-500 transition-colors font-semibold"
+              >
+                Товары
+              </button>
+              <button 
+                onClick={() => scrollToSection('how-to-buy')}
+                className="text-white hover:text-pink-500 transition-colors font-semibold"
+              >
+                Как купить
+              </button>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <section className="container mx-auto px-4 py-16 md:py-24">
+        <div className="text-center space-y-6">
+          <div className="inline-block">
+            <Badge className="bg-purple-600 text-white px-4 py-2 text-lg mb-4 pulse-neon">
+              <Icon name="Zap" className="inline mr-2" size={20} />
+              Minecraft Shop
+            </Badge>
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black text-white neon-text">
+            ДОБРО ПОЖАЛОВАТЬ В<br />БУДУЩЕЕ ИГРЫ
+          </h2>
+          <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto">
+            Легендарные предметы, привилегии и пакеты для настоящих игроков
+          </p>
+          <Button 
+            onClick={() => scrollToSection('products')}
+            size="lg" 
+            className="bg-pink-600 hover:bg-pink-700 text-white font-bold text-lg px-8 py-6 neon-glow"
+          >
+            <Icon name="ShoppingCart" className="mr-2" size={24} />
+            СМОТРЕТЬ ТОВАРЫ
+          </Button>
+        </div>
+      </section>
+
+      <section id="products" className="container mx-auto px-4 py-16">
+        <h2 className="text-4xl md:text-5xl font-black text-center mb-12 neon-text">
+          НАШИ ТОВАРЫ
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <Card 
+              key={product.id} 
+              className="bg-black/60 border-2 border-purple-600/50 backdrop-blur-sm hover:border-pink-500 transition-all duration-300 hover:scale-105"
+            >
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="bg-gradient-to-br from-pink-600 to-purple-600 p-3 rounded-lg neon-glow">
+                    <Icon name={product.icon} size={32} className="text-white" />
+                  </div>
+                  {product.badge && (
+                    <Badge className="bg-red-600 text-white pulse-neon">
+                      {product.badge}
+                    </Badge>
+                  )}
+                </div>
+                <CardTitle className="text-2xl font-bold text-white mt-4">
+                  {product.name}
+                </CardTitle>
+                <CardDescription className="text-gray-400 text-base">
+                  {product.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-4xl font-black text-pink-500 neon-text">
+                  {product.price}₽
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button 
+                  onClick={() => handleBuyClick(product)}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold text-lg py-6"
+                  size="lg"
+                >
+                  <Icon name="ShoppingBag" className="mr-2" size={20} />
+                  КУПИТЬ
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section id="how-to-buy" className="container mx-auto px-4 py-16">
+        <Card className="bg-black/60 border-2 border-purple-600 backdrop-blur-sm max-w-3xl mx-auto">
+          <CardHeader>
+            <CardTitle className="text-3xl font-black text-white neon-text">
+              <Icon name="HelpCircle" className="inline mr-3" size={32} />
+              КАК КУПИТЬ?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 text-gray-300 text-lg">
+            <div className="flex items-start gap-4">
+              <div className="bg-pink-600 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                1
+              </div>
+              <p>Выберите нужный товар из каталога</p>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="bg-pink-600 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                2
+              </div>
+              <p>Нажмите зеленую кнопку "КУПИТЬ"</p>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="bg-pink-600 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                3
+              </div>
+              <p>Позвоните по указанному номеру телефона</p>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="bg-pink-600 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                4
+              </div>
+              <p>Сообщите название товара и получите его на сервере!</p>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="bg-black border-2 border-pink-500 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-black neon-text">
+              ПОКУПКА ТОВАРА
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Позвоните по номеру ниже для оформления заказа
+            </DialogDescription>
+          </DialogHeader>
+          {selectedProduct && (
+            <div className="space-y-6">
+              <div className="bg-purple-900/30 p-4 rounded-lg border border-purple-600">
+                <div className="flex items-center gap-3 mb-2">
+                  <Icon name={selectedProduct.icon} size={24} className="text-pink-500" />
+                  <h3 className="font-bold text-lg">{selectedProduct.name}</h3>
+                </div>
+                <p className="text-3xl font-black text-pink-500 neon-text">
+                  {selectedProduct.price}₽
+                </p>
+              </div>
+              
+              <div className="space-y-3">
+                <p className="text-sm text-gray-400 font-semibold">ПОЗВОНИТЕ ПО НОМЕРУ:</p>
+                <div className="bg-gradient-to-r from-pink-600 to-purple-600 p-4 rounded-lg neon-glow">
+                  <p className="text-2xl font-black text-center">{phoneNumber}</p>
+                </div>
+                <Button 
+                  onClick={copyPhoneNumber}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold"
+                  size="lg"
+                >
+                  <Icon name="Copy" className="mr-2" size={20} />
+                  СКОПИРОВАТЬ НОМЕР
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <footer className="border-t border-purple-600/30 mt-16">
+        <div className="container mx-auto px-4 py-8 text-center text-gray-500">
+          <p className="font-semibold">© 2024 MIAMORE SHOP - Все права защищены</p>
+        </div>
+      </footer>
     </div>
   );
 };
