@@ -579,7 +579,7 @@ const Index = () => {
       <footer className="border-t border-purple-600/30 mt-16">
         <div className="container mx-auto px-4 py-8 text-center">
           <p className="text-2xl font-black neon-text mb-2">ТЫ КРУТОЙ БРО</p>
-          <p className="text-gray-500 font-semibold">© 2024 MIAMORE SHOP - Все права защищены</p>
+          <p className="text-gray-500 font-semibold">© 2025 MIAMORE SHOP - Все права защищены</p>
         </div>
       </footer>
     </div>
